@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using AltPlugAndPlay.Models;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AltPlugAndPlay.Controllers
 {
@@ -15,8 +18,12 @@ namespace AltPlugAndPlay.Controllers
         };
 
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public async Task<IEnumerable<WeatherForecast>> WeatherForecasts(
+            [FromServices] PnPServerContext dbContext
+            )
         {
+            var value = await dbContext.NetworkDevices.ToListAsync();
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

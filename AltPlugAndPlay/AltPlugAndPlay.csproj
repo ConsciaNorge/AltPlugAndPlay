@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +21,20 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="NVelocity\Runtime\Defaults\directive.properties" />
+    <None Remove="NVelocity\Runtime\Defaults\nvelocity.properties" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="NVelocity\Runtime\Defaults\directive.properties" />
+    <EmbeddedResource Include="NVelocity\Runtime\Defaults\nvelocity.properties" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\tftp.net\Tftp.Net.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
